@@ -39,7 +39,7 @@ const idx = String(index + 1).padStart(2, '0');
 			<Image src={work.cover} alt={work.title} widths={[900, 1400]} sizes="100vw" />
 		</figure>
 
-		<div class="body">
+		<div class="body reveal">
 			<h2 class="kicker">ABOUT THE PROJECT</h2>
 			<p class="desc">{work.description}</p>
 			<a class="behance" href="https://www.behance.net/fa7fd025" target="_blank" rel="noopener">
@@ -49,7 +49,7 @@ const idx = String(index + 1).padStart(2, '0');
 
 		<div class="gallery">
 			{work.images.map((img, i) => (
-				<figure class="shot frame">
+				<figure class="shot frame reveal">
 					<Image src={img} alt={`${work.title} ${i + 1}`} widths={[900, 1400]} sizes="100vw" loading="lazy" />
 				</figure>
 			))}
@@ -155,7 +155,20 @@ const idx = String(index + 1).padStart(2, '0');
 
 	.frame :global(img) {
 		width: 100%;
+		height: auto;
 		display: block;
+	}
+
+	.visual {
+		overflow: hidden;
+	}
+
+	.visual :global(img) {
+		transition: transform 0.9s cubic-bezier(0.16, 0.8, 0.24, 1);
+	}
+
+	.visual:hover :global(img) {
+		transform: scale(1.03);
 	}
 
 	.body {
@@ -209,12 +222,49 @@ const idx = String(index + 1).padStart(2, '0');
 	}
 
 	.shot {
+		overflow: hidden;
 		transition: border-color 0.35s ease, box-shadow 0.35s ease;
+	}
+
+	.shot:nth-child(2) {
+		transition-delay: 90ms;
+	}
+	.shot:nth-child(3) {
+		transition-delay: 180ms;
+	}
+	.shot:nth-child(4) {
+		transition-delay: 270ms;
+	}
+	.shot:nth-child(5) {
+		transition-delay: 360ms;
+	}
+	.shot:nth-child(6) {
+		transition-delay: 450ms;
+	}
+	.shot:nth-child(7) {
+		transition-delay: 540ms;
+	}
+	.shot:nth-child(8) {
+		transition-delay: 630ms;
+	}
+	.shot:nth-child(9) {
+		transition-delay: 720ms;
+	}
+	.shot:nth-child(10) {
+		transition-delay: 810ms;
+	}
+
+	.shot :global(img) {
+		transition: transform 0.8s cubic-bezier(0.16, 0.8, 0.24, 1);
 	}
 
 	.shot:hover {
 		border-color: rgba(241, 239, 233, 0.35);
 		box-shadow: 0 22px 48px rgba(0, 0, 0, 0.4);
+	}
+
+	.shot:hover :global(img) {
+		transform: scale(1.04);
 	}
 
 	.pager {
@@ -243,6 +293,15 @@ const idx = String(index + 1).padStart(2, '0');
 	.pager .arrow {
 		font-family: 'Space Grotesk', monospace;
 		color: var(--prism-amber);
+		transition: transform 0.35s cubic-bezier(0.16, 0.8, 0.24, 1);
+	}
+
+	.pager a:hover .arrow:first-child {
+		transform: translateX(-4px);
+	}
+
+	.pager a:hover .arrow:last-child {
+		transform: translateX(4px);
 	}
 
 	.pager .p-title {
