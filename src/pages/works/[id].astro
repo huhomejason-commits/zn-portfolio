@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import { works } from '../../data/works';
+
+export function getStaticPaths() {
+	return works.map((work) => ({
+		params: { id: work.id },
+		props: { work },
+	}));
+}
+
+const { work } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const index = works.findIndex((w) => w.id === work.id);
+const prev = works[index - 1];
+const next = works[index + 1];
+---
+
+<BaseLayout title={`${work.title} ｜ 胡正男`} description={work.description}>
+	<div class="detail">
+		<nav class="crumb">
+			<a href={base + '#works'}>← 作品</a>
+		</nav>
+
+		<div class="head">
+			<div>
+				<p class="meta-line">
+					<span class="cat">{work.category}</span>
+					<span class="year">{work.year}</span>
+				</p>
+				<h1>{work.title}</h1>
+			</div>
+		</div>
+
+		<figure class="visual">
+			<Image src={work.image} alt={work.title} widths={[900, 1400]} sizes="100vw" />
+		</figure>
+
+		<div class="body">
+			<p class="desc">{work.description}</p>
+			<a class="behance" href="https://www.behance.net/fa7fd025" target="_blank" rel="noopener">
+				在 Behance 查看完整專案 →
+			</a>
+		</div>
+
+		<nav class="pager">
+			{prev ? (
+				<a href={base + 'works/' + prev.id + '/'}>← {prev.title}</a>
+			) : (
+				<span></span>
+			)}
+			{next ? (
+				<a href={base + 'works/' + next.id + '/'}>{next.title} →</a>
+			) : (
+				<span></span>
+			)}
+		</nav>
+	</div>
+</BaseLayout>
+
+<style>
+	.detail {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 48px 24px 96px;
+	}
+
+	.crumb {
+		margin-bottom: 32px;
+		font-size: 14px;
+		letter-spacing: 0.15em;
+		color: var(--gray);
+	}
+
+	.crumb a:hover {
+		color: var(--ink);
+	}
+
+	.head {
+		margin-bottom: 40px;
+	}
+
+	.meta-line {
+		display: flex;
+		gap: 16px;
+		font-size: 13px;
+		color: var(--gray);
+		letter-spacing: 0.2em;
+		margin-bottom: 12px;
+	}
+
+	.head h1 {
+		font-size: clamp(28px, 4vw, 44px);
+		font-weight: 900;
+		letter-spacing: 0.06em;
+	}
+
+	.visual {
+		border: 1px solid var(--line);
+		margin-bottom: 40px;
+	}
+
+	.visual :global(img) {
+		width: 100%;
+	}
+
+	.body {
+		max-width: 640px;
+	}
+
+	.desc {
+		font-size: 16px;
+		letter-spacing: 0.05em;
+	}
+
+	.behance {
+		display: inline-block;
+		margin-top: 24px;
+		font-size: 14px;
+		letter-spacing: 0.1em;
+		color: var(--gray);
+		border-bottom: 1px solid var(--gray);
+		padding-bottom: 2px;
+		transition: all 0.2s;
+	}
+
+	.behance:hover {
+		color: var(--ink);
+		border-color: var(--ink);
+	}
+
+	.pager {
+		display: flex;
+		justify-content: space-between;
+		gap: 24px;
+		margin-top: 80px;
+		padding-top: 24px;
+		border-top: 1px solid var(--line);
+		font-size: 14px;
+		letter-spacing: 0.05em;
+	}
+
+	.pager a {
+		color: var(--gray);
+		transition: color 0.2s;
+	}
+
+	.pager a:hover {
+		color: var(--ink);
+	}
+</style>
