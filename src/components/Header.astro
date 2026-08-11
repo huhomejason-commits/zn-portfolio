@@ -7,7 +7,7 @@ const base = import.meta.env.BASE_URL;
 <header class="site-header">
 	<a class="brand" href={base} aria-label="胡正男作品集首頁">
 		<span class="mark"><img src={logo.src} alt="ZN 標誌" width="30" height="22" /></span>
-		<span class="name chrome">胡正男</span>
+		<span class="name">胡正男</span>
 	</a>
 	<nav class="nav" aria-label="主要導覽">
 		<a href={base + '#works'}>作品</a>
@@ -45,17 +45,11 @@ const base = import.meta.env.BASE_URL;
 		padding: 4px 6px;
 		background: var(--surface-2);
 		border: 1px solid var(--line);
-		box-shadow: 0 0 18px rgba(177, 140, 255, 0.12) inset;
 	}
 
 	.mark img {
 		width: 30px;
 		height: 22px;
-	}
-
-	.name.chrome {
-		font-weight: 900;
-		letter-spacing: 0.14em;
 	}
 
 	.nav {
@@ -79,7 +73,7 @@ const base = import.meta.env.BASE_URL;
 		bottom: 0;
 		width: 100%;
 		height: 1px;
-		background: linear-gradient(90deg, var(--prism-blue), var(--prism-purple), var(--prism-amber));
+		background: rgba(241, 239, 233, 0.55);
 		transform: scaleX(0);
 		transform-origin: left;
 		transition: transform 0.3s ease;

@@ -32,7 +32,7 @@ const idx = String(index + 1).padStart(2, '0');
 				<span class="cat">{work.category}</span>
 				<span class="year">{work.year}</span>
 			</p>
-			<h1 class="chrome shine">{work.title}</h1>
+			<h1>{work.title}</h1>
 		</div>
 
 		<figure class="visual frame">
@@ -145,8 +145,8 @@ const idx = String(index + 1).padStart(2, '0');
 	}
 
 	.frame {
-		padding: 1px;
-		background: linear-gradient(180deg, #2c2c36, #16161d);
+		border: 1px solid var(--line);
+		background: var(--surface);
 	}
 
 	.visual {
@@ -196,9 +196,9 @@ const idx = String(index + 1).padStart(2, '0');
 	}
 
 	.behance:hover {
-		border-color: transparent;
-		background: linear-gradient(120deg, var(--prism-blue), var(--prism-purple), var(--prism-amber));
+		background: var(--ink);
 		color: #0a0a0c;
+		border-color: var(--ink);
 		font-weight: 700;
 	}
 
@@ -209,18 +209,12 @@ const idx = String(index + 1).padStart(2, '0');
 	}
 
 	.shot {
-		box-shadow: 0 0 0 rgba(177, 140, 255, 0);
-		transition: box-shadow 0.4s ease, background 0.4s ease;
+		transition: border-color 0.35s ease, box-shadow 0.35s ease;
 	}
 
 	.shot:hover {
-		background: linear-gradient(
-			120deg,
-			rgba(109, 179, 255, 0.55),
-			rgba(177, 140, 255, 0.45),
-			rgba(255, 176, 102, 0.5)
-		);
-		box-shadow: 0 0 34px rgba(177, 140, 255, 0.16);
+		border-color: rgba(241, 239, 233, 0.35);
+		box-shadow: 0 22px 48px rgba(0, 0, 0, 0.4);
 	}
 
 	.pager {

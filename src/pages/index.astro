@@ -2,21 +2,29 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WorkCard from '../components/WorkCard.astro';
 import logo from '../assets/logo/zn.png';
+import top from '../assets/visual/top.jpg';
+import photo from '../assets/visual/photo.jpg';
+import bottom from '../assets/visual/bottom.jpg';
 import { works } from '../data/works';
 ---
 
 <BaseLayout title="胡正男 ｜ 設計作品集">
-	<!-- Hero -->
+	<!-- Hero：頂層視覺 + 個人照片 -->
 	<section class="hero" id="top">
+		<div class="hero-bg" style={`background-image: url(${top.src})`} aria-hidden="true"></div>
+		<div class="hero-scrim" aria-hidden="true"></div>
 		<div class="hero-inner">
-			<img class="hero-logo" src={logo.src} alt="ZN 標誌" width="96" />
-			<p class="kicker">DESIGN PORTFOLIO · 2022–2026</p>
-			<h1 class="chrome shine">胡正男</h1>
-			<p class="tagline">繪本創作 ・ 產品設計 ・ 展示設計</p>
-			<p class="sub">
-				以設計思考、視覺敘事與跨領域整合，探索設計在品牌、文化與使用者體驗中的可能性。
-			</p>
-			<a class="scroll" href="#works">觀看作品 <span>↓</span></a>
+			<figure class="photo">
+				<img src={photo.src} alt="胡正男 個人照片" />
+				<figcaption>胡正男 — 設計研究生</figcaption>
+			</figure>
+			<div class="copy">
+				<p class="kicker">DESIGN PORTFOLIO · 2022–2026</p>
+				<h1>胡正男</h1>
+				<p class="tagline">繪本創作 ・ 產品設計 ・ 展示設計</p>
+				<p class="sub">以設計思考、視覺敘事與跨領域整合，探索設計在品牌、文化與使用者體驗中的可能性。</p>
+				<a class="scroll" href="#works">觀看作品 <span>↓</span></a>
+			</div>
 		</div>
 	</section>
 
@@ -46,9 +54,7 @@ import { works } from '../data/works';
 			<i class="rule"></i>
 		</div>
 		<div class="about-body">
-			<h3 class="lead">
-				嗨，我是 胡正男。<span class="outline">設計研究生</span>
-			</h3>
+			<h3 class="lead">嗨，我是 胡正男。<span class="outline">設計研究生</span></h3>
 			<p>
 				輔仁大學應用美術研究所，擅長從研究、概念發展到設計執行，將設計思維轉化為兼具美感與功能性的作品。相信好的設計不只是解決問題，更能建立人與物之間的情感連結。
 			</p>
@@ -65,7 +71,7 @@ import { works } from '../data/works';
 		</div>
 		<div class="contact-body">
 			<p>有任何合作或交流，歡迎來信。</p>
-			<a class="mail chrome" href="mailto:huhomejason@gmail.com">huhomejason@gmail.com</a>
+			<a class="mail" href="mailto:huhomejason@gmail.com">huhomejason@gmail.com</a>
 			<ul class="links">
 				<li><a href="https://www.behance.net/fa7fd025" target="_blank" rel="noopener">Behance ↗</a></li>
 				<li><a href="#" class="placeholder">Instagram</a></li>
@@ -73,101 +79,131 @@ import { works } from '../data/works';
 			</ul>
 		</div>
 	</section>
+
+	<!-- 尾層視覺 -->
+	<section class="closing" aria-label="感謝觀看">
+		<div class="closing-bg" style={`background-image: url(${bottom.src})`} aria-hidden="true"></div>
+		<div class="closing-scrim" aria-hidden="true"></div>
+		<div class="closing-inner">
+			<p class="kicker">THANK YOU FOR WATCHING</p>
+			<h2>期待與你相遇</h2>
+			<a class="mail" href="mailto:huhomejason@gmail.com">huhomejason@gmail.com</a>
+			<a class="top" href="#top">回到頂端 ↑</a>
+		</div>
+	</section>
 </BaseLayout>
 
 <style>
+	/* ---------- Hero ---------- */
 	.hero {
-		min-height: 92vh;
+		position: relative;
+		min-height: 100vh;
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		text-align: center;
-		padding: 72px 24px;
-		position: relative;
 		overflow: hidden;
 	}
 
-	.hero::before,
-	.hero::after {
-		content: '';
+	.hero-bg {
 		position: absolute;
-		border-radius: 50%;
-		pointer-events: none;
-		filter: blur(70px);
-		z-index: -1;
+		inset: 0;
+		background-position: center;
+		background-size: cover;
+		transform: scale(1.06);
+		animation: settle 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 	}
 
-	.hero::before {
-		width: 520px;
-		height: 520px;
-		top: -140px;
-		left: -120px;
-		background: radial-gradient(circle, rgba(109, 179, 255, 0.16), transparent 65%);
+	@keyframes settle {
+		from {
+			transform: scale(1.14);
+			opacity: 0.6;
+		}
+		to {
+			transform: scale(1.06);
+			opacity: 1;
+		}
 	}
 
-	.hero::after {
-		width: 560px;
-		height: 560px;
-		bottom: -180px;
-		right: -140px;
-		background: radial-gradient(circle, rgba(177, 140, 255, 0.14), transparent 65%);
+	.hero-scrim {
+		position: absolute;
+		inset: 0;
+		background:
+			linear-gradient(90deg, rgba(6, 6, 8, 0.82) 0%, rgba(6, 6, 8, 0.5) 45%, rgba(6, 6, 8, 0.18) 72%, rgba(6, 6, 8, 0.5) 100%),
+			linear-gradient(0deg, rgba(6, 6, 8, 0.72) 0%, transparent 32%);
 	}
 
 	.hero-inner {
-		display: flex;
-		flex-direction: column;
+		position: relative;
+		width: 100%;
+		max-width: 1120px;
+		margin: 0 auto;
+		padding: 120px 24px 96px;
+		display: grid;
+		grid-template-columns: 340px 1fr;
 		align-items: center;
+		gap: 64px;
 	}
 
-	.hero-logo {
-		width: 96px;
+	.photo {
+		background: rgba(10, 10, 12, 0.55);
+		border: 1px solid rgba(241, 239, 233, 0.22);
+		padding: 10px;
+		box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+		backdrop-filter: blur(4px);
+	}
+
+	.photo img {
+		width: 100%;
 		height: auto;
-		padding: 6px;
-		background: var(--surface-2);
-		border: 1px solid var(--line);
-		box-shadow: 0 0 30px rgba(177, 140, 255, 0.14), 0 0 60px rgba(109, 179, 255, 0.08);
-		margin-bottom: 40px;
 	}
 
-	.kicker {
+	.photo figcaption {
+		padding: 12px 4px 4px;
+		font-size: 12px;
+		letter-spacing: 0.2em;
+		color: var(--gray);
+		text-align: center;
+	}
+
+	.copy .kicker {
 		font-family: 'Space Grotesk', monospace;
 		font-size: 12px;
 		letter-spacing: 0.4em;
-		color: var(--dim);
-		margin-bottom: 22px;
+		color: var(--gray);
+		margin-bottom: 20px;
 	}
 
-	.hero h1 {
-		font-size: clamp(64px, 15vw, 200px);
+	.copy h1 {
+		font-size: clamp(56px, 9vw, 120px);
 		font-weight: 900;
-		letter-spacing: 0.14em;
-		margin-right: -0.14em;
+		letter-spacing: 0.12em;
+		margin-right: -0.12em;
 		line-height: 1.05;
 	}
 
-	.tagline {
-		margin-top: 26px;
+	.copy .tagline {
+		margin-top: 22px;
 		font-size: 16px;
-		letter-spacing: 0.3em;
-		margin-right: -0.3em;
+		letter-spacing: 0.28em;
+		margin-right: -0.28em;
 		color: var(--gray);
 	}
 
-	.sub {
-		margin-top: 16px;
+	.copy .sub {
+		margin-top: 14px;
 		font-size: 13px;
 		letter-spacing: 0.12em;
 		color: var(--dim);
-		max-width: 560px;
+		max-width: 460px;
 	}
 
 	.scroll {
-		margin-top: 56px;
-		padding: 12px 34px;
-		border: 1px solid var(--line);
+		display: inline-block;
+		margin-top: 40px;
+		padding: 12px 32px;
+		border: 1px solid rgba(241, 239, 233, 0.35);
 		font-size: 13px;
 		letter-spacing: 0.3em;
-		color: var(--gray);
+		color: var(--ink);
 		transition: all 0.3s;
 	}
 
@@ -177,9 +213,9 @@ import { works } from '../data/works';
 	}
 
 	.scroll:hover {
-		border-color: transparent;
-		background: linear-gradient(120deg, var(--prism-blue), var(--prism-purple), var(--prism-amber));
+		background: var(--ink);
 		color: #0a0a0c;
+		border-color: var(--ink);
 		font-weight: 700;
 	}
 
@@ -188,32 +224,20 @@ import { works } from '../data/works';
 	}
 
 	.hero-inner > * {
-		animation: rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+		animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 	}
 
 	.hero-inner > *:nth-child(1) {
-		animation-delay: 0.05s;
+		animation-delay: 0.2s;
 	}
 	.hero-inner > *:nth-child(2) {
-		animation-delay: 0.15s;
-	}
-	.hero-inner > *:nth-child(3) {
-		animation-delay: 0.25s;
-	}
-	.hero-inner > *:nth-child(4) {
-		animation-delay: 0.35s;
-	}
-	.hero-inner > *:nth-child(5) {
-		animation-delay: 0.45s;
-	}
-	.hero-inner > *:nth-child(6) {
-		animation-delay: 0.55s;
+		animation-delay: 0.32s;
 	}
 
 	@keyframes rise {
 		from {
 			opacity: 0;
-			transform: translateY(22px);
+			transform: translateY(20px);
 		}
 		to {
 			opacity: 1;
@@ -221,6 +245,7 @@ import { works } from '../data/works';
 		}
 	}
 
+	/* ---------- Works ---------- */
 	.grid {
 		list-style: none;
 		display: grid;
@@ -228,15 +253,12 @@ import { works } from '../data/works';
 		gap: 56px 28px;
 	}
 
+	/* ---------- About ---------- */
 	.about-body .lead {
 		font-size: clamp(24px, 3.4vw, 40px);
 		font-weight: 900;
 		letter-spacing: 0.04em;
 		margin-bottom: 22px;
-	}
-
-	.about-body .lead .outline {
-		font-weight: 900;
 	}
 
 	.about-body p {
@@ -246,6 +268,7 @@ import { works } from '../data/works';
 		color: var(--gray);
 	}
 
+	/* ---------- Contact ---------- */
 	.contact-body p {
 		color: var(--gray);
 	}
@@ -258,11 +281,11 @@ import { works } from '../data/works';
 		letter-spacing: 0.04em;
 		padding-bottom: 4px;
 		border-bottom: 1px solid var(--line);
-		transition: filter 0.3s;
+		transition: border-color 0.3s;
 	}
 
 	.mail:hover {
-		filter: brightness(1.15);
+		border-color: var(--ink);
 	}
 
 	.links {
@@ -284,16 +307,105 @@ import { works } from '../data/works';
 	}
 
 	.links a:hover {
-		border-color: var(--prism-purple);
+		border-color: rgba(241, 239, 233, 0.5);
 		color: var(--ink);
-		box-shadow: 0 0 22px rgba(177, 140, 255, 0.2);
 	}
 
 	.links .placeholder {
 		opacity: 0.45;
 	}
 
+	/* ---------- 尾層視覺 ---------- */
+	.closing {
+		position: relative;
+		min-height: 90vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		overflow: hidden;
+	}
+
+	.closing-bg {
+		position: absolute;
+		inset: 0;
+		background-position: center;
+		background-size: cover;
+	}
+
+	.closing-scrim {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(180deg, rgba(6, 6, 8, 0.85) 0%, rgba(6, 6, 8, 0.25) 38%, rgba(6, 6, 8, 0.25) 62%, rgba(6, 6, 8, 0.9) 100%);
+	}
+
+	.closing-inner {
+		position: relative;
+		padding: 0 24px;
+	}
+
+	.closing-inner .kicker {
+		font-family: 'Space Grotesk', monospace;
+		font-size: 12px;
+		letter-spacing: 0.45em;
+		color: var(--gray);
+		margin-bottom: 20px;
+	}
+
+	.closing-inner h2 {
+		font-size: clamp(40px, 7vw, 84px);
+		font-weight: 900;
+		letter-spacing: 0.1em;
+		margin-right: -0.1em;
+	}
+
+	.closing-inner .mail {
+		font-size: clamp(18px, 2.4vw, 26px);
+		color: var(--gray);
+		border-color: rgba(241, 239, 233, 0.25);
+	}
+
+	.closing-inner .mail:hover {
+		color: var(--ink);
+		border-color: var(--ink);
+	}
+
+	.top {
+		display: inline-block;
+		margin-top: 48px;
+		font-size: 13px;
+		letter-spacing: 0.3em;
+		color: var(--gray);
+		transition: color 0.25s;
+	}
+
+	.top:hover {
+		color: var(--ink);
+	}
+
+	/* ---------- Responsive ---------- */
 	@media (max-width: 900px) {
+		.hero-inner {
+			grid-template-columns: 1fr;
+			gap: 40px;
+			padding-top: 80px;
+		}
+
+		.photo {
+			max-width: 360px;
+			width: 100%;
+			margin: 0 auto;
+		}
+
+		.copy {
+			text-align: center;
+		}
+
+		.copy .sub {
+			margin-left: auto;
+			margin-right: auto;
+		}
+
 		.grid {
 			grid-template-columns: 1fr;
 			gap: 44px;
