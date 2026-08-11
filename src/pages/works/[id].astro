@@ -16,38 +16,40 @@ const base = import.meta.env.BASE_URL;
 const index = works.findIndex((w) => w.id === work.id);
 const prev = works[index - 1];
 const next = works[index + 1];
+const idx = String(index + 1).padStart(2, '0');
 ---
 
 <BaseLayout title={`${work.title} ｜ 胡正男`} description={work.description}>
 	<div class="detail">
 		<nav class="crumb">
 			<a href={base + '#works'}>← 作品</a>
+			<span class="sep">/</span>
+			<span class="idx">{idx}</span>
 		</nav>
 
 		<div class="head">
-			<div>
-				<p class="meta-line">
-					<span class="cat">{work.category}</span>
-					<span class="year">{work.year}</span>
-				</p>
-				<h1>{work.title}</h1>
-			</div>
+			<p class="meta-line">
+				<span class="cat">{work.category}</span>
+				<span class="year">{work.year}</span>
+			</p>
+			<h1 class="chrome shine">{work.title}</h1>
 		</div>
 
-		<figure class="visual">
+		<figure class="visual frame">
 			<Image src={work.cover} alt={work.title} widths={[900, 1400]} sizes="100vw" />
 		</figure>
 
 		<div class="body">
+			<h2 class="kicker">ABOUT THE PROJECT</h2>
 			<p class="desc">{work.description}</p>
 			<a class="behance" href="https://www.behance.net/fa7fd025" target="_blank" rel="noopener">
-				在 Behance 查看完整專案 →
+				在 Behance 查看完整專案 ↗
 			</a>
 		</div>
 
 		<div class="gallery">
 			{work.images.map((img, i) => (
-				<figure class="shot">
+				<figure class="shot frame">
 					<Image src={img} alt={`${work.title} ${i + 1}`} widths={[900, 1400]} sizes="100vw" loading="lazy" />
 				</figure>
 			))}
@@ -55,12 +57,18 @@ const next = works[index + 1];
 
 		<nav class="pager">
 			{prev ? (
-				<a href={base + 'works/' + prev.id + '/'}>← {prev.title}</a>
+				<a href={base + 'works/' + prev.id + '/'}>
+					<span class="arrow">←</span>
+					<span class="p-title">{prev.title}</span>
+				</a>
 			) : (
 				<span></span>
 			)}
 			{next ? (
-				<a href={base + 'works/' + next.id + '/'}>{next.title} →</a>
+				<a href={base + 'works/' + next.id + '/'}>
+					<span class="p-title">{next.title}</span>
+					<span class="arrow">→</span>
+				</a>
 			) : (
 				<span></span>
 			)}
@@ -72,13 +80,17 @@ const next = works[index + 1];
 	.detail {
 		max-width: 1200px;
 		margin: 0 auto;
-		padding: 48px 24px 96px;
+		padding: 48px 24px 110px;
 	}
 
 	.crumb {
-		margin-bottom: 32px;
-		font-size: 14px;
-		letter-spacing: 0.15em;
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin-bottom: 40px;
+		font-family: 'Space Grotesk', monospace;
+		font-size: 13px;
+		letter-spacing: 0.2em;
 		color: var(--gray);
 	}
 
@@ -86,93 +98,169 @@ const next = works[index + 1];
 		color: var(--ink);
 	}
 
+	.crumb .sep {
+		color: var(--dim);
+	}
+
+	.crumb .idx {
+		color: var(--prism-cyan);
+	}
+
 	.head {
-		margin-bottom: 40px;
+		margin-bottom: 44px;
 	}
 
 	.meta-line {
 		display: flex;
-		gap: 16px;
-		font-size: 13px;
-		color: var(--gray);
+		gap: 12px;
+		margin-bottom: 18px;
+		font-family: 'Space Grotesk', monospace;
+		font-size: 12px;
 		letter-spacing: 0.2em;
-		margin-bottom: 12px;
+	}
+
+	.meta-line .cat {
+		color: var(--ink);
+		border: 1px solid var(--line);
+		padding: 5px 14px;
+		background: var(--surface-2);
+	}
+
+	.meta-line .cat::before {
+		content: '◆ ';
+		color: var(--prism-cyan);
+		font-size: 9px;
+	}
+
+	.meta-line .year {
+		color: var(--gray);
+		align-self: center;
 	}
 
 	.head h1 {
-		font-size: clamp(28px, 4vw, 44px);
+		font-size: clamp(34px, 5.4vw, 68px);
 		font-weight: 900;
-		letter-spacing: 0.06em;
+		letter-spacing: 0.05em;
+		line-height: 1.15;
+	}
+
+	.frame {
+		padding: 1px;
+		background: linear-gradient(180deg, #2c2c36, #16161d);
 	}
 
 	.visual {
-		border: 1px solid var(--line);
-		margin-bottom: 40px;
+		margin-bottom: 44px;
 	}
 
-	.visual :global(img) {
+	.frame :global(img) {
 		width: 100%;
+		display: block;
 	}
 
 	.body {
-		max-width: 640px;
+		max-width: 680px;
+	}
+
+	.kicker {
+		font-family: 'Space Grotesk', monospace;
+		font-size: 12px;
+		letter-spacing: 0.34em;
+		color: var(--prism-purple);
+		margin-bottom: 16px;
+		font-weight: 500;
 	}
 
 	.desc {
 		font-size: 16px;
 		letter-spacing: 0.05em;
-		line-height: 1.9;
+		line-height: 2;
 		white-space: pre-line;
+		color: var(--gray);
 	}
 
-	.gallery {
-		margin-top: 56px;
-		display: grid;
-		gap: 24px;
-	}
-
-	.shot {
-		border: 1px solid var(--line);
-	}
-
-	.shot :global(img) {
-		width: 100%;
-		height: auto;
+	.desc::first-letter {
+		color: var(--ink);
+		font-weight: 700;
 	}
 
 	.behance {
 		display: inline-block;
-		margin-top: 24px;
+		margin-top: 28px;
+		padding: 11px 26px;
+		border: 1px solid var(--line);
 		font-size: 14px;
-		letter-spacing: 0.1em;
+		letter-spacing: 0.14em;
 		color: var(--gray);
-		border-bottom: 1px solid var(--gray);
-		padding-bottom: 2px;
-		transition: all 0.2s;
+		transition: all 0.3s;
 	}
 
 	.behance:hover {
-		color: var(--ink);
-		border-color: var(--ink);
+		border-color: transparent;
+		background: linear-gradient(120deg, var(--prism-blue), var(--prism-purple), var(--prism-amber));
+		color: #0a0a0c;
+		font-weight: 700;
+	}
+
+	.gallery {
+		margin-top: 64px;
+		display: grid;
+		gap: 26px;
+	}
+
+	.shot {
+		box-shadow: 0 0 0 rgba(177, 140, 255, 0);
+		transition: box-shadow 0.4s ease, background 0.4s ease;
+	}
+
+	.shot:hover {
+		background: linear-gradient(
+			120deg,
+			rgba(109, 179, 255, 0.55),
+			rgba(177, 140, 255, 0.45),
+			rgba(255, 176, 102, 0.5)
+		);
+		box-shadow: 0 0 34px rgba(177, 140, 255, 0.16);
 	}
 
 	.pager {
 		display: flex;
 		justify-content: space-between;
 		gap: 24px;
-		margin-top: 80px;
-		padding-top: 24px;
+		margin-top: 88px;
+		padding-top: 26px;
 		border-top: 1px solid var(--line);
 		font-size: 14px;
 		letter-spacing: 0.05em;
 	}
 
 	.pager a {
+		display: flex;
+		align-items: center;
+		gap: 12px;
 		color: var(--gray);
-		transition: color 0.2s;
+		transition: color 0.25s;
 	}
 
 	.pager a:hover {
 		color: var(--ink);
+	}
+
+	.pager .arrow {
+		font-family: 'Space Grotesk', monospace;
+		color: var(--prism-amber);
+	}
+
+	.pager .p-title {
+		max-width: 300px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	@media (max-width: 640px) {
+		.pager .p-title {
+			max-width: 42vw;
+		}
 	}
 </style>
