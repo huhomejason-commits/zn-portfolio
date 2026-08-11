@@ -164,6 +164,19 @@ import { works } from '../data/works';
 		padding: 10px;
 		box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
 		backdrop-filter: blur(4px);
+		animation:
+			rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s both,
+			float 7s ease-in-out 1.6s infinite;
+	}
+
+	@keyframes float {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-10px);
+		}
 	}
 
 	.photo img {
@@ -238,21 +251,14 @@ import { works } from '../data/works';
 		transform: translateY(3px);
 	}
 
-	.hero-inner > * {
-		animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-	}
-
-	.hero-inner > *:nth-child(1) {
-		animation-delay: 0.2s;
-	}
-	.hero-inner > *:nth-child(2) {
-		animation-delay: 0.32s;
+	.hero-inner > .copy {
+		animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.32s both;
 	}
 
 	@keyframes rise {
 		from {
 			opacity: 0;
-			transform: translateY(20px);
+			transform: translateY(26px);
 		}
 		to {
 			opacity: 1;
@@ -266,6 +272,26 @@ import { works } from '../data/works';
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		gap: 56px 28px;
+	}
+
+	/* Staggered reveal for cards */
+	.grid .cell:nth-child(1) {
+		transition-delay: 0ms;
+	}
+	.grid .cell:nth-child(2) {
+		transition-delay: 80ms;
+	}
+	.grid .cell:nth-child(3) {
+		transition-delay: 160ms;
+	}
+	.grid .cell:nth-child(4) {
+		transition-delay: 240ms;
+	}
+	.grid .cell:nth-child(5) {
+		transition-delay: 320ms;
+	}
+	.grid .cell:nth-child(6) {
+		transition-delay: 400ms;
 	}
 
 	/* ---------- About ---------- */
@@ -296,11 +322,13 @@ import { works } from '../data/works';
 		letter-spacing: 0.04em;
 		padding-bottom: 4px;
 		border-bottom: 1px solid var(--line);
-		transition: border-color 0.3s;
+		transition: border-color 0.3s, letter-spacing 0.35s ease, color 0.3s;
 	}
 
 	.mail:hover {
 		border-color: var(--ink);
+		letter-spacing: 0.08em;
+		color: var(--prism-cyan);
 	}
 
 	.links {
@@ -318,12 +346,14 @@ import { works } from '../data/works';
 		padding: 9px 22px;
 		border: 1px solid var(--line);
 		color: var(--gray);
-		transition: all 0.3s;
+		transition: border-color 0.3s, color 0.3s, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s;
 	}
 
 	.links a:hover {
 		border-color: rgba(241, 239, 233, 0.5);
 		color: var(--ink);
+		transform: translateY(-3px);
+		box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
 	}
 
 	.links .placeholder {
