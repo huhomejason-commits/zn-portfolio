@@ -38,9 +38,9 @@ const base = import.meta.env.BASE_URL;
 				--bg: #060608;
 				--surface: #0c0c10;
 				--surface-2: #13131a;
-				--ink: #f1efe9;
-				--gray: #9a9aa4;
-				--dim: #5f5f6a;
+				--ink: #ffffff;
+				--gray: #d0d1d8;
+				--dim: #a8a9b4;
 				--line: #23232c;
 				--prism-blue: #6db3ff;
 				--prism-purple: #b18cff;
@@ -110,6 +110,18 @@ const base = import.meta.env.BASE_URL;
 				-webkit-text-stroke: 1px var(--dim);
 			}
 
+			/* Scroll reveal */
+			.reveal {
+				opacity: 0;
+				transform: translateY(16px);
+				transition: opacity 0.8s ease, transform 0.8s ease;
+			}
+
+			.reveal.is-visible {
+				opacity: 1;
+				transform: none;
+			}
+
 			.section {
 				max-width: 1200px;
 				margin: 0 auto;
@@ -167,6 +179,7 @@ const base = import.meta.env.BASE_URL;
 				*::after {
 					animation-duration: 0.01ms !important;
 					animation-iteration-count: 1 !important;
+					transition-duration: 0.01ms !important;
 				}
 			}
 		</style>
