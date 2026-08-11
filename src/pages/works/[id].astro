@@ -35,7 +35,7 @@ const next = works[index + 1];
 		</div>
 
 		<figure class="visual">
-			<Image src={work.image} alt={work.title} widths={[900, 1400]} sizes="100vw" />
+			<Image src={work.cover} alt={work.title} widths={[900, 1400]} sizes="100vw" />
 		</figure>
 
 		<div class="body">
@@ -43,6 +43,14 @@ const next = works[index + 1];
 			<a class="behance" href="https://www.behance.net/fa7fd025" target="_blank" rel="noopener">
 				在 Behance 查看完整專案 →
 			</a>
+		</div>
+
+		<div class="gallery">
+			{work.images.map((img, i) => (
+				<figure class="shot">
+					<Image src={img} alt={`${work.title} ${i + 1}`} widths={[900, 1400]} sizes="100vw" loading="lazy" />
+				</figure>
+			))}
 		</div>
 
 		<nav class="pager">
@@ -113,6 +121,23 @@ const next = works[index + 1];
 	.desc {
 		font-size: 16px;
 		letter-spacing: 0.05em;
+		line-height: 1.9;
+		white-space: pre-line;
+	}
+
+	.gallery {
+		margin-top: 56px;
+		display: grid;
+		gap: 24px;
+	}
+
+	.shot {
+		border: 1px solid var(--line);
+	}
+
+	.shot :global(img) {
+		width: 100%;
+		height: auto;
 	}
 
 	.behance {

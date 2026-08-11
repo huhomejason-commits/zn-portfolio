@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WorkCard from '../components/WorkCard.astro';
 import logo from '../assets/logo/zn.png';
-import { works, categories } from '../data/works';
+import { works } from '../data/works';
 ---
 
 <BaseLayout title="胡正男 ｜ 設計作品集">
@@ -10,7 +10,7 @@ import { works, categories } from '../data/works';
 	<section class="hero" id="top">
 		<img class="hero-logo" src={logo.src} alt="ZN 標誌" width="96" height="96" />
 		<h1>胡正男</h1>
-		<p class="tagline">產品設計 ・ 展示設計 ・ 繪本創作 ・ 平面設計</p>
+		<p class="tagline">繪本創作 ・ 產品設計 ・ 展示設計</p>
 		<p class="sub">2022–2026 設計作品集</p>
 		<a class="scroll" href="#works">觀看作品 ↓</a>
 	</section>
@@ -21,13 +21,9 @@ import { works, categories } from '../data/works';
 			<h2>作品</h2>
 			<span>WORKS</span>
 		</div>
-		<div class="filters">
-			<button class="filter is-active" data-cat="全部">全部</button>
-			{categories.map((c) => <button class="filter" data-cat={c}>{c}</button>)}
-		</div>
 		<ul class="grid">
 			{works.map((work) => (
-				<li class="cell" data-cat={work.category}>
+				<li class="cell">
 					<WorkCard work={work} />
 				</li>
 			))}
@@ -64,22 +60,6 @@ import { works, categories } from '../data/works';
 		</div>
 	</section>
 </BaseLayout>
-
-<script>
-	const buttons = document.querySelectorAll('.filter');
-	const cells = document.querySelectorAll('.cell');
-
-	buttons.forEach((btn) => {
-		btn.addEventListener('click', () => {
-			buttons.forEach((b) => b.classList.remove('is-active'));
-			btn.classList.add('is-active');
-			const cat = btn.dataset.cat;
-			cells.forEach((cell) => {
-				cell.style.display = cat === '全部' || cell.dataset.cat === cat ? '' : 'none';
-			});
-		});
-	});
-</script>
 
 <style>
 	.hero {
@@ -130,40 +110,11 @@ import { works, categories } from '../data/works';
 		color: var(--ink);
 	}
 
-	.filters {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 10px;
-		margin-bottom: 32px;
-	}
-
-	.filter {
-		padding: 6px 18px;
-		border: 1px solid var(--ink);
-		background: transparent;
-		color: var(--ink);
-		font-size: 13px;
-		letter-spacing: 0.15em;
-		font-family: inherit;
-		cursor: pointer;
-		transition: all 0.2s;
-	}
-
-	.filter:hover {
-		background: var(--ink);
-		color: var(--paper);
-	}
-
-	.filter.is-active {
-		background: var(--ink);
-		color: var(--paper);
-	}
-
 	.grid {
 		list-style: none;
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 40px 24px;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 48px 24px;
 	}
 
 	.about-body p {
@@ -206,12 +157,6 @@ import { works, categories } from '../data/works';
 
 	.links .placeholder {
 		opacity: 0.5;
-	}
-
-	@media (max-width: 900px) {
-		.grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
 	}
 
 	@media (max-width: 640px) {
